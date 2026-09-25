@@ -1,0 +1,7 @@
+# Intermediate render products (re-creatable with the build command)
+build/
+**/build/
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
