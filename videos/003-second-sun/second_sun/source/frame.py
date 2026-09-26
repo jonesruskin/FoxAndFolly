@@ -9,7 +9,7 @@ import numpy as np
 import skia
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "shared"))
+sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "..", "shared"))
 from foxfolly import post  # noqa: E402
 
 W, H = 1920, 1080

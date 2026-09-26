@@ -15,7 +15,7 @@ from scipy.io import wavfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "shared"))
+sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "..", "shared"))
 from foxfolly.audio import automation, convolve_reverb, db, limiter, reverb_ir, true_peak  # noqa: E402
 
 import timeline as TL  # noqa: E402

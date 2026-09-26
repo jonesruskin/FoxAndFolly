@@ -13,7 +13,7 @@ import numpy as np
 import skia
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "shared"))
+sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "..", "shared"))
 from foxfolly.noise import fractal_noise  # noqa: E402
 
 from rig import Light, c4, catmull, ellipse_path, mix, scl, tube  # noqa: E402
