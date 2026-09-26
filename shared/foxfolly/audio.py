@@ -157,7 +157,12 @@ def limiter(stereo, ceiling_db=-1.5, lookahead=0.008, release=0.25, sr=SR):
     """
     from scipy.ndimage import minimum_filter1d, uniform_filter1d
     ceiling = db(ceiling_db)
-    peak = np.max(np.abs(stereo), axis=1)
+    # true-peak detection: 4x oversampled envelope folded back to the base rate
+    up = np.abs(signal.resample_poly(stereo, 4, 1, axis=0)).max(axis=1)
+    up = up[: (len(up) // 4) * 4].reshape(-1, 4).max(axis=1)
+    peak = np.maximum(np.max(np.abs(stereo), axis=1)[: len(up)], up)
+    if len(peak) < len(stereo):
+        peak = np.r_[peak, np.max(np.abs(stereo[len(peak):]), axis=1)]
     la = int(lookahead * sr)
     g_req = np.minimum(1.0, ceiling / np.maximum(peak, 1e-9))
     g_min = minimum_filter1d(g_req, size=2 * la + 1)
@@ -166,4 +171,5 @@ def limiter(stereo, ceiling_db=-1.5, lookahead=0.008, release=0.25, sr=SR):
     red = signal.lfilter([1 - a], [1, -a], 1 - g)
     g = 1 - np.maximum(red, 1 - g)
     g = uniform_filter1d(g, size=max(3, la // 4))
+    g = np.minimum(g, g_min)          # never let smoothing lift the gain above what a peak needs
     return (stereo * g[:, None]).astype(np.float32)

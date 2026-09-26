@@ -10,6 +10,7 @@ so the channel owns all of it.
 |---|-------|--------|
 | 001 | The Great Conjunction: A Love Story Between Two Moons | (made before this repo) |
 | 002 | **Facing East** | [`videos/002-facing-east`](videos/002-facing-east) |
+| 003 | **SECOND SUN** | [`videos/003-second-sun/second_sun`](videos/003-second-sun/second_sun) |
 
 ## Layout
 

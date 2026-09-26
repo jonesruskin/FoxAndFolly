@@ -56,7 +56,9 @@ def render_text_sprite(text, size=56, face="CormorantGaramond-Italic.ttf",
     font.setSubpixel(True)
     font.setEdging(skia.Font.Edging.kSubpixelAntiAlias)
     font.setEdging(skia.Font.Edging.kAntiAlias)
-    lines = _wrap(font, text, max_width)
+    lines = []
+    for para in text.split("\n"):
+        lines += _wrap(font, para, max_width)
     widths = [font.measureText(l) + letter_spacing * max(0, len(l) - 1) for l in lines]
     lh = size * line_gap
     pad = int(size * 1.2)

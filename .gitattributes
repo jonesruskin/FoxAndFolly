@@ -9,3 +9,5 @@
 # Every deliverable image in a video's output/ folder (thumbnails, stills)
 videos/*/output/*.png filter=lfs diff=lfs merge=lfs -text
 videos/*/output/*.jpg filter=lfs diff=lfs merge=lfs -text
+videos/*/second_sun/*.png filter=lfs diff=lfs merge=lfs -text
+videos/*/second_sun/source/bakeoff/*.png filter=lfs diff=lfs merge=lfs -text
