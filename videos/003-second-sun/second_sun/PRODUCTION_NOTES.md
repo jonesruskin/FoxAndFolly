@@ -63,3 +63,5 @@ B's speed paid for more review iterations, and those are worth more to the finis
 ## 7. Open issues and limitations (honest)
 
 See `REVIEW_LOG.md` §Final for what remains after the review loop.
+
+The S7/S17 perch, S12 depth, S17 gift framing and S5 POV were all fixed in review pass 1.
