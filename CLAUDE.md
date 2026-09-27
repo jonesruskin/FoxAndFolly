@@ -32,7 +32,7 @@ videos/NNN-slug/ one folder per episode:
 ```
 
 ## Rules
-- One branch per video; keep channel-wide changes (bible, shared lib) in their own commits.
+- Work directly on `main` (the owner's choice). Keep channel-wide changes (bible, shared lib) in their own commits, separate from episode commits.
 - Media (`*.mp4 *.wav *.mov`, `videos/*/output/*.png`) goes through **Git LFS** (see `.gitattributes`). Never commit `build/`.
 - No external images, footage, audio or non-OFL fonts. Everything visible/audible is generated.
 - Timing lives in `src/story.py` only; the script table, subtitles, renderer and QA read from it.

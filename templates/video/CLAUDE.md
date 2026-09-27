@@ -1,7 +1,7 @@
 # Video NNN — TITLE
 
 **Status:** brainstorm
-**Branch:** video/NNN-slug
+**Branch:** main
 
 ## Decisions so far
 - (record every judgment call here and in production_notes.md)
