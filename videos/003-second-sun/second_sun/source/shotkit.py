@@ -167,7 +167,7 @@ def lake_foreground(F, t, lk, state):
             a = old_horn(cv, pose, L, state.get("oh_x", 600), 950, 0.19, 1, detail=0.5)
             if state.get("wisp", True):
                 nx, ny = a["frill_nest"]
-                wisp(cv, state.get("wi_pose", {"t": t, "crouch": 0.9, "curl": 0.8}), L, nx + 3, ny + 13, 0.16, 1,
+                wisp(cv, state.get("wi_pose", {"t": t, "crouch": 0.9, "curl": 0.8}), L, nx, ny, 0.16, 1,
                      detail=0.3)
     pc = mix(scl(lk["plant"], 0.8), (0.1, 0.1, 0.1), after)
     rng = np.random.default_rng(4)
@@ -577,7 +577,7 @@ def ash_mound(F, cam, x, y, scale, lk, depth=1.0):
             cam.apply(c, depth)
         a = old_horn(c, {"crouch": 1.0, "breath": 0.0, "head_pitch": 0.22, "blink": 1.0}, L, x, y, scale, 1, detail=0.0)
         nx, ny = a["frill_nest"]
-        wisp(c, {"t": 0.0, "curl": 1.0, "crouch": 1.0, "blink": 1.0}, L, nx + 4 * scale / 0.56, ny + 40 * scale / 0.56,
+        wisp(c, {"t": 0.0, "curl": 1.0, "crouch": 1.0, "blink": 1.0}, L, nx, ny,
              0.4 * scale / 0.56, 1, detail=0.0)
         # drifts of ash heaped against her flank
         c.drawOval(skia.Rect(x - 560 * scale, y - 50 * scale, x + 600 * scale, y + 26 * scale),

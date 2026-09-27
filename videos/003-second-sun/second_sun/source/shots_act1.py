@@ -79,7 +79,7 @@ def S04(F, u, dur, t):
     cam.apply(cv, 1.0)
     a = old_horn(cv, oh, L, CAMP["oh_x"], CAMP["oh_y"], CAMP["oh_s"], 1)
     nx, ny = a["frill_nest"]
-    w = wisp(cv, wi, L, nx + 4, ny + 40, 0.42, 1)
+    w = wisp(cv, wi, L, nx, ny, 0.42, 1)
     cv.restore()
     # the first sunlight touches his face
     sun = smoothstep(29.6, 31.0, t)
@@ -110,7 +110,7 @@ def S05(F, u, dur, t):
         nx, ny = a["frill_nest"]
         hop = clamp((t - 37.15) / 0.85)
         # he hops from the frill to the ground in front of her face
-        x0, y0, x1, y1 = nx + 4, ny + 40, 1330, CAMP["oh_y"] - 2
+        x0, y0, x1, y1 = nx, ny, 1330, CAMP["oh_y"] - 2
         e = ease_in_out_sine(hop)
         wx, wy = x0 + (x1 - x0) * e, y0 + (y1 - y0) * e - 90 * math.sin(math.pi * hop)
         chirp = pulses(t, [EV["chirp_s5"][0]], 0.35)
@@ -402,8 +402,8 @@ def S08(F, u, dur, t):
         wisp(cv, wi, L, x + wi["s"] * 0.4, CAMP["oh_y"], 0.4, -1)
     else:
         e = ease_in_out_sine(climb)
-        x = (hx + 140) + (hx - 10 - (hx + 140)) * e
-        y = CAMP["oh_y"] + (hy + 20 - CAMP["oh_y"]) * e - 80 * math.sin(math.pi * climb)
+        x = (hx + 140) + (hx - (hx + 140)) * e
+        y = CAMP["oh_y"] + (hy - CAMP["oh_y"]) * e - 80 * math.sin(math.pi * climb)
         settle = smoothstep(80.9, 81.4, t)
         wi = {"t": t, "hop": climb if climb < 1 else None, "hop_len": 0, "hop_h": 0, "crouch": 0.7 * settle,
               "tuft": 0.5 - 0.2 * settle, "blink": max(blinks(t, 3.0), 0.9 * window(t, 81.6, 83.0, 0.4, 0.4)),

@@ -36,8 +36,25 @@ def py(script, *args):
     run([sys.executable, os.path.join(HERE, script), *args])
 
 
+def srt_time(t):
+    ms = int(round(t * 1000))
+    h, ms = divmod(ms, 3600000)
+    m, ms = divmod(ms, 60000)
+    sec, ms = divmod(ms, 1000)
+    return f"{h:02d}:{m:02d}:{sec:02d},{ms:03d}"
+
+
+def write_srt(path):
+    """Subtitles = every caption and card exactly as burned into the picture."""
+    items = [(a, b, t) for a, b, t in TL.NARRATION] + [(a, b, t) for a, b, t, st in TL.CARDS]
+    with open(path, "w", encoding="utf-8") as f:
+        for i, (a, b, t) in enumerate(sorted(items), 1):
+            f.write(f"{i}\n{srt_time(a + 0.25)} --> {srt_time(b - 0.25)}\n{t}\n\n")
+
+
 def deliver():
     os.makedirs(OUT, exist_ok=True)
+    write_srt(os.path.join(OUT, "SECOND_SUN_subtitles.en.srt"))
     final = os.path.join(OUT, "SECOND_SUN_final.mp4")
     run(["ffmpeg", "-y", "-loglevel", "error", "-i", os.path.join(BUILD, "picture_lossless.mp4"),
          "-i", os.path.join(BUILD, "mix.wav"), "-map", "0:v:0", "-map", "1:a:0",

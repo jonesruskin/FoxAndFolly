@@ -49,7 +49,7 @@ def draw_pair_camp(F, t, lk, cam, oh_pose, wi_pose, wisp_in_frill=True, wisp_xy=
     if wi_pose is not None:
         if wisp_in_frill:
             nx, ny = a["frill_nest"]
-            w = wisp(cv, wi_pose, L, nx + 10, ny + 38, wisp_scale, wisp_facing)
+            w = wisp(cv, wi_pose, L, nx, ny, wisp_scale, wisp_facing)
         else:
             w = wisp(cv, wi_pose, L, wisp_xy[0], wisp_xy[1], wisp_scale, wisp_facing)
     cv.restore()
@@ -180,7 +180,7 @@ def S16(F, u, dur, t):
           "head_turn": -1 if 157.0 < t < 158.2 else 1, "blink": blinks(t, 3.2, 0.4), "glow_eye": 0.25}
     if hop is not None:
         wi.update({"hop": hop, "hop_len": 0, "hop_h": 26})
-    wisp(cv, wi, L, hx - 12, hy + 16, 0.4, 1)
+    wisp(cv, wi, L, hx, hy, 0.4, 1)
     cv.restore()
     camp_fg(F, t, lk, cam, {})
     F.post = {"grade": "act3_night", "bloom": (0.5, 0.65)}
@@ -244,8 +244,8 @@ def S17(F, u, dur, t):
                     wisp(cv, {"t": t, "head_pitch": 0.4 * push, "crouch": 0.2, "tuft": 0.5 + 0.3 * smoothstep(165.5, 166.0, t),
                               "blink": blinks(t, 2.6)}, L, bx + 60, CAMP["oh_y"], 0.4, -1)
                 else:
-                    x = bx + 60 + (nx + 4 - bx - 60) * curl_k
-                    y = CAMP["oh_y"] + (ny + 40 - CAMP["oh_y"]) * curl_k - 60 * math.sin(math.pi * curl_k)
+                    x = bx + 60 + (nx - bx - 60) * curl_k
+                    y = CAMP["oh_y"] + (ny - CAMP["oh_y"]) * curl_k - 60 * math.sin(math.pi * curl_k)
                     wisp(cv, {"t": t, "curl": curl_k, "crouch": curl_k, "tuft": 0.4, "blink": curl_k}, L, x, y, 0.4, 1)
         cv.restore()
         if close < 0.5:
@@ -260,7 +260,7 @@ def S17(F, u, dur, t):
     cam.apply(cv, 1.0)
     a = old_horn(cv, {"crouch": 1.0, "breath": t, "head_pitch": 0.22, "blink": 1.0}, L, CAMP["oh_x"], CAMP["oh_y"], CAMP["oh_s"], 1)
     nx, ny = a["frill_nest"]
-    wisp(cv, {"t": t, "curl": 1.0, "crouch": 1.0, "blink": 1.0}, L, nx + 4, ny + 40, 0.4, 1)
+    wisp(cv, {"t": t, "curl": 1.0, "crouch": 1.0, "blink": 1.0}, L, nx, ny, 0.4, 1)
     bx, by = a["beak"]
     pebble(cv, bx + 14, by + 2, 7.0, L, glint=0.35)
     cv.restore()
@@ -283,7 +283,7 @@ def S18(F, u, dur, t):
         opn = smoothstep(173.6, 174.0, t)
         wisp(cv, {"t": t * (1 - opn * 0.9), "curl": 1.0 - 0.25 * smoothstep(174.6, 175.4, t), "crouch": 1.0,
                   "blink": 1 - opn, "eye_dir": 0.0 if t < 175.0 else 3.14, "tuft": 0.2 + 0.5 * smoothstep(174.8, 175.3, t),
-                  "glow_eye": 0.2}, L, nx + 4, ny + 40, 0.4, 1)
+                  "glow_eye": 0.2}, L, nx, ny, 0.4, 1)
         cv.restore()
         F.post = {"grade": "act3_night", "bloom": (0.5, 0.6)}
         return
@@ -318,7 +318,7 @@ def S20(F, u, dur, t):
     oh = {"crouch": brace, "breath": t * 2.5, "head_pitch": -0.05, "shudder": 1.0, "blink": 0.0, "listen": 0.2 * math.sin(t * 5)}
     a = old_horn(cv, oh, L, CAMP["oh_x"], CAMP["oh_y"], CAMP["oh_s"], 1)
     nx, ny = a["frill_nest"]
-    wisp(cv, {"t": t, "crouch": 0.9, "tuft": 1.0, "shake": 0.4, "blink": 0.0, "head_pitch": 0.2}, L, nx + 4, ny + 36, 0.4, 1)
+    wisp(cv, {"t": t, "crouch": 0.9, "tuft": 1.0, "shake": 0.4, "blink": 0.0, "head_pitch": 0.2}, L, nx, ny, 0.4, 1)
     cv.restore()
     Wd.ash(cv, t, 0.5, density=0.2, col=(0.6, 0.5, 0.4), wind_x=4, fall=160)     # dust shaken loose
     camp_fg(F, t, lk, cam, {})

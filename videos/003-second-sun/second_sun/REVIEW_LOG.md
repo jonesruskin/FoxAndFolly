@@ -74,6 +74,18 @@ These remain after the fixes above.
 4. **S28 fossils.** The skull design is readable (the broken horn, the small skeleton, the crescent) but graphic rather than naturalistic.
 5. **The herd in the lock-off** is small and simple in silhouette. It is animated (drinking, alarm, flight) but crowd variety is limited.
 
+## Pass 3: owner review (after v1 delivery)
+
+The owner's notes, and what changed:
+
+| Note | Fix |
+|---|---|
+| "Without captions it is difficult to know what is happening" | 45 narration captions now run through the whole film, in the channel's poetic style: Cormorant Garamond italic, bottom-centre, soft shadow band, 0.5 s fades. Each holds at least max(2.0 s, characters ÷ 17 + 0.6 s), is never on screen with an end card, and is validated by `timeline.check()`. They also ship as `SECOND_SUN_subtitles.en.srt` (captions and cards, same timings). |
+| "The characters don't resemble dinosaurs" | **Old Horn was rebuilt as a Triceratops horridus** in lateral view: the skull is about a third of body length (×1.3), a keratin beak, a short nose horn, long brow horns (the left one broken halfway), a cheek (jugal) flare with an epijugal spike, and a **solid** bony frill (no fenestrae, as in *Triceratops*) sweeping up and back over the neck, rimmed with small triangular epoccipitals and keeping the V-notch. The hips sit higher than the shoulders, the barrel is deep, the tail is held clear of the ground, the hind legs are columnar and the forelegs shorter, with hooflike toes and large rounded feature scales. |
+| "One of them looks like a squirrel" | **Wisp was rebuilt as a troodontid** (*Pectinodon*): a horizontal body balanced over long legs, an S-curved neck, a long narrow snout with small teeth, a very large forward-set eye, feathered forelimbs folded like wings, a **raised enlarged second-toe claw**, and a long stiffened tail with feathers along both sides (a frond, as in feathered paravians) with one pale band. The bushy squirrel-like fan, round body and upright posture are gone. His sleep pose is now bird-like: head turned back onto the body, tail wrapped around. |
+| "The pebble looks like a half moon" | It is now a **water-worn quartz pebble**: a rounded, slightly flattened stone with 3D shading, grey flecks, a specular highlight, a contact shadow and a faint pale vein. It is no longer crescent-shaped (the fossil scene uses the same stone). |
+| Other issues found | *Edmontosaurus* now has a long skull and a broad, flat duck bill under its comb. Old Horn's lying head no longer dips into the ground. All rider and perch positions are now exact rig anchors instead of hand offsets. |
+
 ## Final statement
 
 The loop stopped here. The brief asks for 9+ in every category and a juror pass with nothing left to improve, and that bar is **not** met in character animation, acting, emotional impact, FX, composition, music or sound design (7–8).

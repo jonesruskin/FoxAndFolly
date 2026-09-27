@@ -58,6 +58,74 @@ CARDS = [
 ]
 CARD_FADE = 1.1
 
+# Narration captions (added after the owner's review: the film must be followable
+# from the start). (start, text); end = start + read time, see caption_dur().
+_NARRATION = [
+    (8.8, "Some nights, one star burns warmer than the rest."),
+    (18.6, "The last morning of the Cretaceous began like any other."),
+    (23.6, "The lake. The herd. The mist. A world overflowing with life."),
+    (29.0, "Wisp always slept in the curve of Old Horn's frill."),
+    (34.6, "She was very old. And she was almost blind."),
+    (40.2, "She found her way by his voice. Every chirp was a small light in her dark."),
+    (45.6, "Where she drank, he drank."),
+    (50.2, "The Burrower: a small furry mammal, and Wisp's oldest rival."),
+    (56.0, "It always got away."),
+    (59.8, "In the shallows, a white pebble caught the light."),
+    (64.4, "He offered it to her. She nudged it back: it is yours."),
+    (69.4, "His best treasure went into the old tree."),
+    (73.0, "A mother Edmontosaurus with her hatchlings."),
+    (77.0, "Wisp had no mother. He had Old Horn."),
+    (80.1, "In the daylight sky, a pale new star. No one noticed."),
+    (84.5, "The midday heat was hard on old bones."),
+    (90.4, "A dragonfly led him deeper into the ferns than he had ever gone."),
+    (97.5, "Then the forest went silent."),
+    (101.8, "A young Tyrannosaurus. Patient. Hungry."),
+    (107.2, "Wisp called for help."),
+    (110.8, "Old Horn could not see the hunter. She came anyway."),
+    (116.0, "She tracked it by sound alone, turning her broken horn to every step."),
+    (123.3, "The hunter chose easier prey."),
+    (126.8, "Her old legs gave way. He did not leave her side."),
+    (130.8, "They walked home together, as close as shadows."),
+    (137.0, "At dusk, the new star hung over the Saddle, brighter than any planet."),
+    (145.2, "Every night, they counted stars. He chirped. She hummed."),
+    (153.7, "Then he found the new star, and remembered: she could not see it."),
+    (160.1, "So he brought her his best treasure."),
+    (164.9, "This time, she kept it."),
+    (168.8, "They slept beneath the burning star."),
+    (173.8, "Before dawn, the world went silent. Every head turned south."),
+    (181.0, "A second sun rose, in the wrong part of the sky."),
+    (185.8, "And for the first time in years, Old Horn saw light."),
+    (191.9, "Then the ground heaved, and the lake rose."),
+    (199.6, "The sky rained glass: rock melted by an asteroid impact"),
+    (203.9, "three thousand kilometres to the south."),
+    (208.6, "Wisp could have hidden. He ran back to her."),
+    (215.2, "She sheltered him beneath her great head."),
+    (219.1, "One chirp. One hum."),
+    (233.5, "Afterwards, nothing moved but the ash."),
+    (242.6, "Where they lay, the ash lay deepest."),
+    (248.6, "But something small had survived."),
+    (254.6, "Sixty-six million years of stone buried them."),
+    (261.4, "Montana. Today."),
+]
+
+
+def caption_dur(text):
+    return round(max(2.4, len(text) / 15.0) + 0.9, 2)
+
+
+def _build_narration():
+    out = []
+    for i, (a, t) in enumerate(_NARRATION):
+        b = a + caption_dur(t)
+        if i + 1 < len(_NARRATION):
+            b = min(b, _NARRATION[i + 1][0] - 0.25)
+        out.append((a, round(b, 2), t))
+    return out
+
+
+NARRATION = _build_narration()
+CAPTION_FADE = 0.5
+
 # Star brightness (0..1 visual scale) — its escalation must be trackable.
 STAR_KEYS = [(7, 0.10), (17, 0.12), (72, 0.18), (136, 0.45), (145, 0.62), (160, 0.75),
              (173, 0.80), (180, 0.85)]
@@ -135,6 +203,16 @@ def check():
         need = max(3.0, words / 2.2)          # time to read it twice
         if e - s < need and st == "card":
             probs.append(f"card too short: {txt[:30]}")
+    prev = 0.0
+    for a, b, t in NARRATION:
+        if a < prev + 0.2:
+            probs.append(f"caption overlap: {t[:30]}")
+        if b - a < max(2.0, len(t) / 17.0 + 0.6):
+            probs.append(f"caption too short to read: {t[:30]} ({b - a:.2f}s)")
+        prev = b
+        for ca, cb, ct, cs in CARDS:
+            if cs == "card" and a < cb and b > ca:
+                probs.append(f"caption over card: {t[:30]}")
     return probs
 
 

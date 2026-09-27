@@ -50,7 +50,28 @@ def registry():
     return _REG
 
 
+def draw_captions(img, t):
+    """Narration captions: small italic serif, bottom centre, soft shadow band."""
+    s = img.shape[1] / W
+    import numpy as np
+    for a, b, txt in TL.NARRATION:
+        if not (a - 0.05 <= t <= b + 0.05):
+            continue
+        k = smoothstep(a, a + TL.CAPTION_FADE, t) * (1 - smoothstep(b - TL.CAPTION_FADE, b, t))
+        if k <= 0:
+            continue
+        h = img.shape[0]
+        yy = np.linspace(0, 1, h, dtype=np.float32)[:, None, None]
+        band = np.clip((yy - 0.78) / 0.22, 0, 1) ** 1.5 * 0.45 * k
+        img *= (1 - band)
+        spr = _TEXT.get(txt, size=int(46 * s), color=(0.97, 0.94, 0.88), glow_alpha=0.08, shadow_alpha=0.85,
+                        max_width=int(1500 * s), line_gap=1.3)
+        composite(img, spr, img.shape[1] / 2, h * 0.895, k)
+    return img
+
+
 def draw_cards(img, t):
+    img = draw_captions(img, t)
     s = img.shape[1] / W
     for (a, b, txt, style) in TL.CARDS:
         if not (a - 0.1 <= t <= b + 0.1):

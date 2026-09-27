@@ -3,6 +3,8 @@
 **Fox & Folly #003** · 5:09 · 1920×1080 · 24 fps · wordless · original score
 **Title card subtitle (chosen):** *the last day of the Cretaceous*
 
+> **v2 (after the owner's review):** the film now carries narration captions throughout, the characters were rebuilt to be anatomically faithful (Triceratops, troodontid, hadrosaur), and the pebble is a real water-worn stone. See `REVIEW_LOG.md` §Pass 3. The brief's "wordless" choice was overridden at the owner's request.
+
 ---
 
 ## 1. Pipeline: bake-off and decision
